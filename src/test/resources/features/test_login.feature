@@ -8,11 +8,16 @@ Feature: Login To Jira
     And I click on the login button
     Then I am on the Home Page
 
-  @Regression
-  Scenario: Failed Login to Jira
+  @Regression @wip
+  Scenario Outline: Failed Login to Jira
     Given I navigate to Jira Login Page
-    And I enter user name - "webinar5"
-    And I enter password - "webinar5"
+    And I enter user name - "<Name>"
+    And I enter password - "<Password>"
     And I click on the login button
-#    And I debug
-    Then I am on the Home Page
+    Then I see "<ErrorMessage>"
+
+    Examples:
+      | Name     | Password | ErrorMessage                                                        |
+      | webinar  | webinar5 | Sorry, your username and password are incorrect - please try again. |
+      | webinar  | webinar  | Sorry, your username and password are incorrect - please try again. |
+      | webinar5 | webinar  | Sorry, your username and password are incorrect - please try again. |
